@@ -80,3 +80,52 @@ func Test_Given_RunningEventRouter_When_StatusEventFromUserClientWithNoFollowers
 
 	// Then
 }
+
+func Test_Given_RunningEventRouter_When_StatusEventFromUserClientIsReceived_Then_EventNotificationForFollowersIsEmitted(t *testing.T) {
+	// Given
+	eventChannel := make(chan event)
+	eventNotificationChannel := make(chan eventNotification)
+	shutdownChannel := make(chan struct{})
+
+	go routeEvents(eventChannel, eventNotificationChannel, shutdownChannel)
+
+	var wg sync.WaitGroup
+	var emittedEventNotifications []eventNotification
+	go func() {
+		for {
+			select {
+			case eventNotification := <-eventNotificationChannel:
+				emittedEventNotifications = append(emittedEventNotifications, eventNotification)
+				wg.Done()
+
+			case <-shutdownChannel:
+				return
+			}
+		}
+	}()
+
+	// When
+	followEvent := event{SequenceID: 666, Type: "F", FromUserID: 22, ToUserID: 50}
+	followEventTwo := event{SequenceID: 667, Type: "F", FromUserID: 56, ToUserID: 51}
+
+	statusUpdateEvent := event{SequenceID: 1042, Type: "S", FromUserID: 50}
+
+	wg.Add(3)
+	eventChannel <- followEvent
+	eventChannel <- followEventTwo
+
+	eventChannel <- statusUpdateEvent
+
+	wg.Wait()
+	close(shutdownChannel)
+
+	// Then
+	if len(emittedEventNotifications) != 3 {
+		t.Fatalf("did not receive expected number of event notifications")
+	}
+
+	statusUpdateEventNotification := emittedEventNotifications[2]
+	if statusUpdateEventNotification.ToUserClientID != 22 {
+		t.Errorf("event notification not intended for correct user. got: %v, expected: %v", statusUpdateEventNotification.ToUserClientID, 22)
+	}
+}
