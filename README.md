@@ -98,7 +98,7 @@ following environment variables:
 
 5. **concurrencyLevel** - Default: 100
 
-   Number of conected users.
+   Number of connected users.
 
 6. **numberOfUsers** Default: concurrencyLevel * 10
 	
@@ -122,11 +122,25 @@ following environment variables:
 
    The interval in milliseconds used to log the sent messages counter.
 
-## Your task
-The application has to be build using one of the following languages: Java, Scala. For the implementation you can use any library you consider useful, but please privide the reason in the README.
+## Design
+![Event flow diagram](diagram.png)
 
-Please provide the result as a github repository:
-1. The project with all source files
-2. A README document that lists the architectural desicions you made during the development, main steps of building your solution as well as all assumptions/decisions you made in case of unclear requirements or missing information.
+## Testing
+### Unit tests
 
-Thank you for your cooperation!
+```bash
+cd server
+go test
+```
+
+### Integration test
+
+Start server
+```bash
+go run cmd/main.go
+```
+
+Start event source and clients
+``` bash
+time java -server -Xmx1G -jar ./client/follower-maze-2.0.jar
+```
