@@ -10,7 +10,7 @@ defmodule Maze.Application do
     children = [
       # Starts a worker by calling: Maze.Worker.start_link(arg)
       # {Maze.Worker, arg}
-      Maze.Repo
+      {Maze.Repo}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

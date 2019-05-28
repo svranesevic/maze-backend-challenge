@@ -3,7 +3,7 @@
               {description,"maze"},
               {modules,['Elixir.Dispatcher','Elixir.Maze',
                         'Elixir.Maze.Application','Elixir.Maze.Repo',
-                        'Elixir.Receiver','Elixir.Router','Elixir.Sorter',
-                        'Elixir.Transformer']},
+                        'Elixir.Maze.User','Elixir.Receiver','Elixir.Router',
+                        'Elixir.Sorter','Elixir.Transformer']},
               {registered,[]},
               {vsn,"0.1.0"}]}.
