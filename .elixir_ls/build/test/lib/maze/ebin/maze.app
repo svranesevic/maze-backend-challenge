@@ -5,7 +5,9 @@
                         'Elixir.Maze.Application','Elixir.Maze.Bucket',
                         'Elixir.Maze.Command','Elixir.Maze.Registry',
                         'Elixir.Maze.Repo','Elixir.Maze.Server',
-                        'Elixir.Maze.User','Elixir.Receiver','Elixir.Router',
-                        'Elixir.Sorter','Elixir.Transformer']},
+                        'Elixir.Maze.Supervisor','Elixir.Maze.User',
+                        'Elixir.Receiver','Elixir.Router','Elixir.Sorter',
+                        'Elixir.Transformer']},
               {registered,[]},
-              {vsn,"0.1.0"}]}.
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.Maze.Application',[]}}]}.

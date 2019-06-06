@@ -6,21 +6,15 @@ defmodule Maze.Application do
   use Application
 
   def start(_type, _args) do
-    # List all child processes to be supervised
-    port = String.to_integer(System.get_env("PORT") || raise "missing $PORT environment variable")
-
+    port = String.to_integer(System.get_env("PORT") || "4040")
 
     children = [
-      # Starts a worker by calling: Maze.Worker.start_link(arg)
-      # {Maze.Worker, arg}
-      {Maze.Repo},
-      {Task.Supervisor, name: Maze.TaskSupervisor},
-      Supervisor.child_spec({Task, fn -> Maze.accept(port) end}, restart: :permanent)
+      {Task.Supervisor, name: Maze.Server.TaskSupervisor},
+      {Task, fn -> Maze.Server.accept(port) end}
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Maze.Supervisor]
+    opts = [strategy: :one_for_one, name: Maze.Server.Supervisor]
     Supervisor.start_link(children, opts)
   end
+
 end

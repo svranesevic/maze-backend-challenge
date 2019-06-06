@@ -43,9 +43,6 @@ defmodule Maze.Command do
   @doc """
   Runs the given command.
   """
-  @doc """
-  Runs the given command.
-  """
   def run(command)
 
   def run({:create, bucket}) do

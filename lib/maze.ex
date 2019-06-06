@@ -12,7 +12,10 @@ defmodule Maze do
       :world
 
   """
-  def hello do
-    :world
+  use Application
+
+  def start(_type, _args) do
+    Maze.Supervisor.start_link(name: Maze.Supervisor)
   end
+
 end
