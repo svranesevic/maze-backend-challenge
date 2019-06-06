@@ -14,8 +14,8 @@ defmodule Maze.Application do
       # Starts a worker by calling: Maze.Worker.start_link(arg)
       # {Maze.Worker, arg}
       {Maze.Repo},
-      {Task.Supervisor, name: KVServer.TaskSupervisor},
-      Supervisor.child_spec({Task, fn -> KVServer.accept(port) end}, restart: :permanent)
+      {Task.Supervisor, name: Maze.TaskSupervisor},
+      Supervisor.child_spec({Task, fn -> Maze.accept(port) end}, restart: :permanent)
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

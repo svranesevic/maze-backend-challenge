@@ -1,7 +1,7 @@
 {application,maze,
              [{applications,[kernel,stdlib,elixir,logger,postgrex,ecto_sql]},
               {description,"maze"},
-              {modules,['Elixir.Dispatcher','Elixir.KVServer','Elixir.Maze',
+              {modules,['Elixir.Dispatcher','Elixir.Maze','Elixir.Maze',
                         'Elixir.Maze.Application','Elixir.Maze.Repo',
                         'Elixir.Maze.User','Elixir.Receiver','Elixir.Router',
                         'Elixir.Sorter','Elixir.Transformer']},

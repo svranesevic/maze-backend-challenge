@@ -4,8 +4,8 @@ use Mix.Config
 
 config :maze, Maze.Repo,
   database: "maze_repo",
-  username: "postgres",
-  password: "postgres",
+  username: "elixir_db",
+  password: "elixirdb",
   hostname: "localhost"
 
 # This configuration is loaded before any dependency and is restricted
