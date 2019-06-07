@@ -4,17 +4,17 @@ defmodule Maze.Application do
   @moduledoc false
 
   use Application
+  use Agent
 
   def start(_type, _args) do
     port = String.to_integer(System.get_env("PORT") || "4040")
 
     children = [
-      {Task.Supervisor, name: Maze.Server.TaskSupervisor},
-      {Task, fn -> Maze.Server.accept(port) end}
+      {DynamicSupervisor, strategy: :one_for_one, name: Maze.DynamicSupervisor},
+      {Maze.Worker,[]}
     ]
 
-    opts = [strategy: :one_for_one, name: Maze.Server.Supervisor]
-    Supervisor.start_link(children, opts)
+    Supervisor.start_link(children, strategy: :one_for_one)
   end
 
 end

@@ -1,16 +1,12 @@
-defmodule Maze.Supervisor do
-  use Supervisor
+defmodule Maze.DynamicSupervisor do
+  use DynamicSupervisor
 
-  def start_link(opts) do
-    Supervisor.start_link(__MODULE__, :ok, opts)
+  def start_link(arg) do
+    DynamicSupervisor.start_link(__MODULE__, arg, name: __MODULE__)
   end
 
-  def init(:ok) do
-    children = [
-      {Maze.Registry, name: Maze.Registry}
-    ]
-
-    Supervisor.init(children, strategy: :one_for_one)
+  @impl true
+  def init(_arg) do
+    DynamicSupervisor.init(strategy: :one_for_one)
   end
-
 end
