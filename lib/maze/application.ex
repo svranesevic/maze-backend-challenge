@@ -10,8 +10,7 @@ defmodule Maze.Application do
     port = String.to_integer(System.get_env("PORT") || "4040")
 
     children = [
-      {DynamicSupervisor, strategy: :one_for_one, name: Maze.DynamicSupervisor},
-      {Maze.Worker,[]}
+      {Maze.Worker, port}
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one)
