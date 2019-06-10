@@ -7,7 +7,7 @@ defmodule Maze.Application do
   use Agent
 
   def start(_type, _args) do
-    port = String.to_integer(System.get_env("PORT") || "4040")
+    port = String.to_integer(System.get_env("PORT") || "9090")
 
     children = [
       {Maze.Worker, port}

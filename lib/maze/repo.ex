@@ -3,3 +3,4 @@ defmodule Maze.Repo do
     otp_app: :maze,
     adapter: Ecto.Adapters.Postgres
 end
+#
