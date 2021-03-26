@@ -8,7 +8,7 @@ blocks:
   - name: Build
     task:
       jobs:
-        - name: go build
+        - name: go test
           commands:
             - sem-version go 1.11
             - export GO111MODULE=on
@@ -17,7 +17,10 @@ blocks:
             - checkout
             - go get ./...
             - go build -v .
+    dependencies: []
   - name: Test
+    dependencies:
+      - Build
     task:
       jobs:
         - name: go test
@@ -28,5 +31,17 @@ blocks:
             - 'export PATH=/home/semaphore/go/bin:$PATH'
             - checkout
             - go get ./...
-            - go build -v .
-            - go test
+            - go test ./...
+  - name: Format
+    dependencies:
+      - Build
+    task:
+      jobs:
+        - name: Check format
+          commands:
+            - sem-version go 1.11
+            - export GO111MODULE=on
+            - export GOPATH=~/go
+            - 'export PATH=/home/semaphore/go/bin:$PATH'
+            - checkout
+            - gofmt -l .
